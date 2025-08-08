@@ -1,0 +1,45 @@
+# Compiled object files
+*.o
+*.obj
+*.d
+
+# Precompiled headers
+*.gch
+*.pch
+
+# Compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled static libraries
+*.lib
+*.a
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Build directories
+/build/
+/bin/
+/dist/
+/CMakeFiles/
+/cmake-build-*/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# IDE specific files
+*.code-workspace
+.vscode/
+.idea/
+
+# Temporary files
+*~
+*.swp
+.DS_Store
