@@ -3,6 +3,9 @@
 *.obj
 *.d
 
+*.json
+*.clangd
+
 # Precompiled headers
 *.gch
 *.pch
