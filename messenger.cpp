@@ -4,7 +4,7 @@
 #include <system_error>
 #include <thread>
 
-std::vector<char> vBuffer(20 * 1024);
+std::vector<char> vBuffer(200);
 
 void GrabSomeData(asio::ip::tcp::socket &socket) {
   socket.async_read_some(asio::buffer(vBuffer.data(), vBuffer.size()),
@@ -12,7 +12,7 @@ void GrabSomeData(asio::ip::tcp::socket &socket) {
                            if (!ec) {
                              std::cout << "\n\nRead " << length << " bytes\n\n";
 
-                             for (auto i = 0; i < length; ++i) {
+                             for (size_t i = 0; i < length; ++i) {
                                std::cout << vBuffer[i];
                              }
 
@@ -29,7 +29,7 @@ int main() {
   asio::io_context io;
 
   // Give some fake task for asio so context doesn't finish
-  // NOT FINISHED SINCE ORIGINAL COMMAND IS DEPRECATED
+  auto work_gaurd = asio::make_work_guard(io.get_executor());
 
   // Start the context
   std::thread thrContext = std::thread([&]() { io.run(); });
@@ -60,6 +60,8 @@ int main() {
     using namespace std::chrono_literals;
     std::this_thread::sleep_for(2000ms);
   }
+
+  work_gaurd.reset();
 
   return 0;
 }
