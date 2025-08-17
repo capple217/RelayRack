@@ -16,9 +16,8 @@ public:
     olc::net::message<CustomMsgTypes> msg;
     msg.header.id = CustomMsgTypes::FireBullet;
     msg << x << y;
-    Send(msg);
   }
-}
+};
 
 int main() {
 

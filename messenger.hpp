@@ -84,8 +84,12 @@ template <typename T> struct owned_message {
   message<T> msg;
 
   // Override for std::cout compatibility - friend since can be used by others
-  friend std::ostream &operator<<(std::ostream &os, const message<T> &msg) {
-    os << "ID: " << int(msg.header.id) << " Size: " << msg.header.size << "\n";
+  // Adding inline to fix compiler issue, may have to reconsider later
+  // ALSO, CHANGED 'message' to 'owned_message' TODO
+  inline friend std::ostream &operator<<(std::ostream &os,
+                                         const owned_message<T> &msg) {
+    os << "ID: " << int(msg.msg.header.id) << " Size: " << msg.msg.header.size
+       << "\n";
     return os;
   }
 };

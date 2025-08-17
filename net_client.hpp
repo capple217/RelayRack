@@ -32,7 +32,7 @@ public:
 
       // Resolve hostname/ip-address into tangiable physical address
       asio::ip::tcp::resolver resolver(m_context);
-      m_endpoints = resolver.resolve(host, std::to_string(port));
+      auto m_endpoints = resolver.resolve(host, std::to_string(port));
 
       // Tell the connection object to connect to server
       m_connection->ConnectToServer(m_endpoints);
@@ -41,7 +41,10 @@ public:
       thrContext = std::thread([this]() { m_context.run(); });
     }
 
-    return false;
+    catch (std::exception &e) {
+      std::cout << e.what() << "\n";
+      return false;
+    }
   }
 
   void Disconnect() {
@@ -84,9 +87,6 @@ protected:
   // The client has a single instance of a "connection" object,
   // which handles data transfer
   std::unique_ptr<connection<T>> m_connection;
-
-  // POTENTIALLY TEMPORARY
-  asio::ip::tcp::endpoint m_endpoints;
 
 private:
   // This is the thread safe queue of incoming messages
